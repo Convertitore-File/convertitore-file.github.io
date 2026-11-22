@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="style.css">
+    <title>Generatore PDF Documentazione C#</title>
+</head>
+<body>
+    <div class="toolbar">
+        <h2>Generatore PDF Documentazione C#</h2>
+        <p style="font-size: 14px; color: #475569;">Seleziona il file <strong>documentazione.xml</strong> dalla cartella del tuo progetto</p>
+        <label class="btn">
+            📂 Scegli file XML
+            <input type="file" id="xmlFileInput" accept=".xml">
+        </label>
+        <button class="btn btn-print" id="printBtn" onclick="window.print()">🖨️ Salva come PDF</button>
+    </div>
+
+    <div id="output"></div>
+
+    <script src="script.js"></script>
+</body>
+</html>
