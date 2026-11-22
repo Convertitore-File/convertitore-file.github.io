@@ -80,9 +80,26 @@ th { background: #e2e8f0; color: #334155; width: 25%; }
     font-size: 14px;
 }
 
+/* --- AGGIUNTE PER FILE DI TESTO E IMMAGINI --- */
+.file-preview img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 6px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+}
+
+pre {
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: 13px;
+    line-height: 1.5;
+    margin: 0;
+}
+
 /* Regole per la stampa PDF */
 @media print {
     .toolbar { display: none !important; }
-    body { margin: 0; padding: 0; }
+    body { margin: 0; padding: 0; background: white; }
     .card { box-shadow: none; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 }

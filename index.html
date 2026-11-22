@@ -25,13 +25,13 @@
 </head>
 <body>
     <div class="toolbar">
-        <h2>Generatore PDF Documentazione C#</h2>
-        <p style="font-size: 14px; color: #475569;">Seleziona il file <strong>documentazione.xml</strong> dalla cartella del tuo progetto</p>
+        <h2>Convertitore Universale in PDF</h2>
+        <p style="font-size: 14px; color: #475569;">Seleziona un file (Immagini, Codice, Testo, XML C#, JSON, ecc.) da convertire</p>
         <label class="btn">
-            📂 Scegli file XML
-            <input type="file" id="xmlFileInput" accept=".xml">
+            📂 Scegli un file
+            <input type="file" id="fileInput">
         </label>
-        <button class="btn btn-print" id="printBtn" onclick="window.print()">🖨️ Salva come PDF</button>
+        <button class="btn btn-print" id="printBtn" onclick="window.print()" style="display: none;">🖨️ Salva come PDF</button>
     </div>
 
     <div id="output"></div>
