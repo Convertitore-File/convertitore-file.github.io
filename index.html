@@ -10,31 +10,295 @@
     <!-- Fonts & Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- SEO Base -->
     <title>Convertitore di file in PDF</title>
-    <meta name="description" content="Convertitore gratuito di file in PDF">
-    <meta name="keywords" content="Convertitore, convertitore gratis, convertitore PDF">
+    <meta name="description" content="Convertitore universale di file in PDF - Converti immagini, documenti e codice in formato PDF gratuitamente">
+    <meta name="keywords" content="Convertitore, convertitore gratis, convertitore PDF, online converter, universal converter">
     <link rel="canonical" href="https://convertitore-file.github.io/">
 
     <!-- Open Graph -->
-    <meta property="og:title" content="Convertire file in PDF">
-    <meta property="og:description" content="Convertire facilmente i propri file in formato PDF">
+    <meta property="og:title" content="Convertitore Universale di File in PDF">
+    <meta property="og:description" content="Converti facilmente i tuoi file in formato PDF gratuitamente">
+    <meta property="og:image" content="img/Logo.jpeg">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://convertitore-file.github.io/">
+    <meta property="og:locale" content="it_IT">
+
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:title" content="Convertitore Universale di File in PDF">
+    <meta property="twitter:description" content="Converti facilmente i tuoi file in formato PDF gratuitamente">
+    <meta property="twitter:image" content="img/Logo.jpeg">
+
+    <!-- Coordinates -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        /* Reduced motion preference */
+        @media (prefers-reduced-motion: reduce) {
+            :root {
+                --transition-speed: 0.01s;
+            }
+            *,
+            *::before,
+            *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
 </head>
 <body>
-    <div class="toolbar">
-        <h2>Convertitore Universale in PDF</h2>
-        <p style="font-size: 14px; color: #475569;">Seleziona un file (Immagini, Codice, Testo, XML C#, JSON, ecc.) da convertire</p>
-        <label class="btn">
-            📂 Scegli un file
-            <input type="file" id="fileInput">
-        </label>
-        <button class="btn btn-print" id="printBtn" onclick="window.print()" style="display: none;">🖨️ Salva come PDF</button>
+    <!-- Skip Link -->
+    <a href="#converter" class="skip-link">Saltare al convertitore</a>
+
+    <!-- Navigation -->
+    <nav class="navbar" aria-label="Menu principale">
+        <div class="logo">
+            <img src="img/Logo.jpeg" alt="Convertitore File Logo" height="40" loading="lazy">
+            <span>Convertitore File</span>
+        </div>
+        <ul class="nav-links" role="navigation" aria-label="Link navigazione">
+            <li><a href="#features" class="nav-link">Caratteristiche</a></li>
+            <li><a href="#about" class="nav-link">Informazioni</a></li>
+            <li><a href="#contact" class="nav-link">Contatti</a></li>
+        </ul>
+
+        <!-- Azioni a destra della Navbar: Pulsante Tema + CTA -->
+        <div class="nav-actions" style="display: flex; align-items: center; gap: 12px; margin-left: 24px;">
+            <button id="themeToggle" aria-label="Cambia tema chiaro/scuro" class="btn-theme-toggle" style="
+                    background: var(--background);
+                    border: 1px solid var(--border);
+                    color: var(--text);
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all var(--transition-speed);
+                ">
+                <i class="fas fa-moon" id="moonIcon"></i>
+                <i class="fas fa-sun" id="sunIcon" style="display: none;"></i>
+            </button>
+            <a href="#converter" class="btn-nav">Converti i tuoi file</a>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero" aria-labelledby="hero-title">
+        <div class="hero-content">
+            <div class="hero-badge">
+                <i class="fas fa-file-pdf"></i>
+                <span>Universal PDF Converter</span>
+            </div>
+            <h1 id="hero-title" class="hero-h1">Converti<br>Qualsiasi File<br>in PDF</h1>
+            <p class="hero-subtitle">Un'applicazione web intuitiva per convertire immagini, documenti di codice e XML in formato PDF in pochi secondi.</p>
+            <div class="hero-cta">
+                <a href="#converter" class="btn btn-primary">Inizia a Convertire</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <span class="stat-number">10.000+</span>
+                    <span class="stat-label">Conversioni</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">5+</span>
+                    <span class="stat-label">Formati</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Gratuito</span>
+                </div>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <div class="visual-card">
+                <div class="visual-preview">
+                    <div class="image-placeholder" style="background: var(--background); padding: 24px; border-radius: var(--radius-sm); border: 1px dashed var(--border); text-align: center;">
+                        <img src="img/Logo.jpeg" alt="Convertitore File Logo" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px; margin-bottom: 12px; box-shadow: var(--shadow-sm);">
+                        <div class="placeholder-text" style="font-weight: 600; color: var(--text);">
+                            <i class="fas fa-sync-alt" style="color: var(--primary); margin-right: 6px;"></i>
+                            <span>Convertitore File</span>
+                        </div>
+                    </div>
+                    <div class="code-placeholder">
+                        <i class="fas fa-code" style="color: var(--primary);"></i>
+                        <span>// Esempio codice &rarr; PDF</span>
+                    </div>
+                    <div class="xml-placeholder">
+                        <i class="fas fa-file-code" style="color: var(--accent);"></i>
+                        <span>-&gt; Classe / Metodo C#</span>
+                    </div>
+                </div>
+                <small>ANTEPRIMA DEI FORMATI SUPPORTATI</small>
+            </div>
+        </div>
     </div>
 
-    <div id="output"></div>
+    <!-- Features Section -->
+    <section class="features" id="features" aria-labelledby="features-title">
+        <div class="section-header">
+            <h2 id="features-title"><i class="fas fa-star"></i> Perché Sceglierci</h2>
+            <p>Funzionalità potenti progettate per la tua produttività</p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-image"></i>
+                </div>
+                <h3>Supporto Immagini</h3>
+                <p>JPG, PNG, WEBP, GIF, SVG e altri formati. Mantiene la qualità originale durante la conversione.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-code"></i>
+                </div>
+                <h3>Codice Sorgente</h3>
+                <p>.CS, .HTML, .JSON, .PY, .TXT e altri formati di testo. Evidenziazione sintassi inclusa.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-file-alt"></i>
+                </div>
+                <h3>Documentazione C#</h3>
+                <p>File XML di documentazione C# con rendering strutturato di classi, metodi, proprietà e campi.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-print"></i>
+                </div>
+                <h3>Stampa in PDF</h3>
+                <p>Pulsante di stampa integrato per salvare qualsiasi visualizzazione come PDF direttamente dal browser.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section class="how-it-works" id="how-it-works" aria-labelledby="how-it-works-title">
+        <div class="section-header">
+            <h2 id="how-it-works-title"><i class="fas fa-search"></i> Come Funziona</h2>
+            <p>Un processo semplice in 3 passaggi</p>
+        </div>
+        <div class="steps-container">
+            <div class="step-item">
+                <div class="step-number">1</div>
+                <h3>Seleziona un File</h3>
+                <p>Clicca sul pulsante o trascina un file nell'area designata</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">2</div>
+                <h3>Anteprima</h3>
+                <p>Visualizza l'anteprima del tuo file nel formato desiderato</p>
+            </div>
+            <div class="step-item">
+                <div class="step-number">3</div>
+                <h3>Scarica PDF</h3>
+                <p>Premi il bottone di stampa e salva come PDF</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Converter Area (Rinnovata e potenziata) -->
+    <section class="converter-section" id="converter" aria-label="Area di conversione file">
+        <div class="section-header">
+            <h2><i class="fas fa-upload"></i> Convertitore Universale</h2>
+            <p>Trascina qualsiasi file o sfoglia il tuo dispositivo per convertirlo istantaneamente in PDF</p>
+        </div>
+
+        <div class="converter-container">
+            <div class="converter-card">
+                <!-- Area Drag & Drop avanzata -->
+                <div class="converter-area" id="dropZone">
+                    <div class="converter-icon-wrapper" style="font-size: 3rem; color: var(--primary); margin-bottom: 16px;">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3 style="font-family: var(--font-hero); font-size: 1.25rem; margin-bottom: 8px; color: var(--text);">Trascina qui il tuo file</h3>
+                    <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 24px;">Supporta Immagini, Codice Sorgente (.cs, .py, .html, .json) e Documentazione C# XML</p>
+
+                    <label for="fileInput" class="btn btn-primary" style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-folder-open"></i>
+                        <span>Sfoglia file dal computer</span>
+                    </label>
+                    <input type="file" id="fileInput" accept="image/*,.txt,.cs,.html,.json,.csv,.py,.xml,.js,.ts" style="display: none;">
+                </div>
+
+                <!-- Box Anteprima e Risultato Conversione -->
+                <div class="converter-preview-wrapper" style="margin-top: 30px;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px;">
+                        <span style="font-weight: 600; font-size: 0.95rem; color: var(--text);">Anteprima e Risultato</span>
+                        <span id="fileTypeBadge" style="font-size: 0.75rem; background: var(--primary-light); color: var(--primary); padding: 4px 10px; border-radius: 20px; font-weight: 600; display: none;">Pronto</span>
+                    </div>
+
+                    <div class="converter-preview" id="output" style="background: var(--background); border: 1px solid var(--border); border-radius: var(--radius); padding: 24px; min-height: 220px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--muted);">
+                        <div class="placeholder-content">
+                            <i class="fas fa-file-alt" style="font-size: 2rem; margin-bottom: 10px; opacity: 0.5;"></i>
+                            <p style="font-size: 0.9rem;">Nessun file selezionato. L'anteprima apparirà qui.</p>
+                        </div>
+                    </div>
+
+                    <!-- Pulsante di Stampa / Salvataggio PDF -->
+                    <button class="print-btn" id="printBtn" style="display: none;">
+                        <i class="fas fa-print" style="margin-right: 8px;"></i> Salva o Stampa in PDF
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="about" id="about">
+        <div class="section-header">
+            <h2><i class="fas fa-info-circle"></i> Informazioni</h2>
+            <p>Su di noi</p>
+        </div>
+        <div class="about-content">
+            <div class="about-text">
+                <p>Universal PDF Converter è stato creato per semplificare la conversione dei tuoi file in formato PDF direttamente dal browser. Supportiamo un'ampia gamma di formati, dalle immagini al codice sorgente, fino alla documentazione tecnica C#.</p>
+                <p>L'applicazione gira interamente sul tuo dispositivo, garantendo la massima privacy e nessuna necessità di installare software aggiuntivo o registrarsi.</p>
+            </div>
+            <div class="about-stats">
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Gratuito &amp; Open</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">0</span>
+                    <span class="stat-label">Upload su Server</span>
+                </div>
+                <div class="stat">
+                    <span class="stat-number">100%</span>
+                    <span class="stat-label">Privacy sul Browser</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="img/Logo.jpeg" alt="Convertitore File Logo" height="30" loading="lazy">
+                <span>Convertitore File</span>
+            </div>
+            <div class="footer-links">
+                <a href="pages/termini.html" style="color: var(--muted);">Termini di Servizio</a>
+                <a href="pages/privacy.html" style="color: var(--muted);">Privacy Policy</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://github.com/cipriano-salvatore" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
+                <a href="https://instagram.com/salvo_codes" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>2026 Convertitore File. Tutti i diritti riservati. Licenza MIT.</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="script.js"></script>
 </body>

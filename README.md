@@ -1,51 +1,137 @@
-# Convertitore Universale in PDF
+# Universal PDF Converter
 
-## Descrizione
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![GitHub stars](https://img.shields.io/github/stars/convertitore-file/universal-pdf-converter?style=social)](https://github.com/convertitore-file/universal-pdf-converter)
+[![Twitter: @cipriano_salvatore](https://img.shields.io/badge/@cipriano_salvatore-Twitter-1DA1F2?style=social)](https://twitter.com/cipriano_salvatore)
+[![Website](https://img.shields.io/website?url=https%3A%2F%2Fconvertitore-file.github.io%2F)](https://convertitore-file.github.io/)
 
-**Convertitore Universale in PDF** è una semplice applicazione web che permette di caricare diversi tipi di file e visualizzarli o convertirli in PDF. L'interfaccia è stata pensata per essere intuitiva e immediata: basta trascinare un file o selezionarlo tramite il pulsante per ottenere una preview e, se possibile, stamparlo direttamente in formato PDF.
+## 📝 Descrizione
+
+**Universal PDF Converter** è un'applicazione web moderna e intuitiva che ti permette di caricare vari tipi di file e visualizzarli o convertirli in PDF. L'interfaccia è progettata per essere immediata: basta trascinare un file o selezionarlo per ottenere un'anteprima, e se possibile stamparlo direttamente in PDF.
 
 L'applicazione gestisce attualmente:
 
-- **Immagini** (JPG, PNG, WEBP, GIF, SVG, ecc.)
-- **File di testo e codice sorgente** (.txt, .cs, .html, .json, .csv, .py, ecc.)
-- **File XML** di documentazione C#, con rendering strutturato dei membri (classi, metodi, proprietà, campi)
+- **🖼️ Immagini** (JPG, PNG, WEBP, GIF, SVG, SVGZ, BMP, ICO)
+- **💻 File di testo e codice** (.txt, .cs, .html, .json, .csv, .py, .js, .php, .rb, .java, .go, .rs, .ts, .tsx, .jsx)
+- **📚 Documentazione C#** con rendering strutturato di membri (classi, metodi, proprietà, campi)
+- **📄 File XML** generici
 
-Quando possibile, compare un pulsante "Stampa PDF" che permette di salvare la visualizzazione corrente come PDF tramite il browser.
+Quando possibile, appare un pulsante "Stampa PDF" che salva la visualizzazione corrente come PDF tramite il browser.
 
-## Caratteristiche
+## ✨ Caratteristiche
 
-- Caricamento file via interfaccia grafica
-- Anteprima immediata di immagini e testo
-- Rendering speciale per la documentazione XML di C# (evidenziazione di classi, metodi, proprietà, campi con descrizioni, parametri e valori di ritorno)
-- Pulsante di stampa PDF visibile solo quando il tipo di file lo permette
-- Design responsive, funzionante su desktop e dispositivi mobili
-- Stile pulito con barra laterale e schede per la presentazione del contenuto
+| Funzionalità | Descrizione |
+|-------------|-------------|
+| **Caricamento grafico** | Trascina e rilascia o clicca per scegliere un file |
+| **Anteprima immediata** | Visualizzazione di immagini e testo con highlight sintattico |
+| **Rendering C# XML** | Strutturato con classi, metodi, proprietà, campi e parametri |
+| **Stampa in PDF** | Pulsante integrato per salvare qualsiasi visualizzazione come PDF |
+| **Design responsive** | Funziona perfettamente su desktop e dispositivi mobili |
+| **Tema chiaro/scuro** | Supporto completo per entrambi i modi |
+| **Animazioni fluide** | Entrate animate e interazioni hover |
+| **Accessibilità** | ARIA label, focus management, keyboard navigation |
 
-## Tecnologie utilizzate
+## 🚀 Come Usare
 
-- **HTML5** – struttura della pagina
-- **CSS3** – styling, layout e regole per la stampa PDF (`@media print`)
-- **JavaScript vanilla** – logica di lettura dei file, preview e manipolazione DOM
-- **Font Google** (Outfit, Press Start 2P) e **Font Awesome** – per l'aspetto visivo
-- **Licenza MIT** – gratuita e open source
+### Installazione Locale
 
-## Come utilizzare
+1. **Clona il repository**
+   ```bash
+   git clone https://github.com/convertitore-file/universal-pdf-converter.git
+   ```
 
-1. Clona o scarica questo repository sul tuo computer.
-2. Apri il file `index.html` con qualsiasi browser moderno (Chrome, Firefox, Edge, Safari).
-3. Nella barra in alto premi il pulsante **📂 Scegli un file** o trascina un file nell'area.
-4. L'applicazione rileverà automaticamente il tipo di file e mostrerà una preview:
-   - Per le immagini: verrà visualizzata la miniatura.
-   - Per i file di testo/codice: il contenuto verrà visualizzato con evidenziazione HTML.
-   - Per i file XML C#: verrà generata una struttura tecnica con membri, parametri e valori di ritorno.
-5. Se disponibile, premi il pulsante **🖨️ Salva come PDF** per stampare la pagina corrente in PDF.
+2. **Apri l'applicazione**
+   ```bash
+   cd universal-pdf-converter
+   open index.html
+   ```
+   Oppure semplicemente apri `index.html` con qualsiasi browser moderno.
 
-Non è richiesto alcun'installazione di dipendenze o build step: l'applicazione è pronta all'uso.
+3. **Utilizzo**
+   - Nella barra superiore, premi il pulsante **📂 Scegli un file** o trascina un file nell'area designata
+   - L'applicazione rileverà automaticamente il tipo di file e mostrerà un'anteprima:
+     - **Immagini**: anteprima thumbnail visualizzata
+     - **Testo/Codice**: contenuto visualizzato con highlighting sintattico
+     - **XML C#**: struttura tecnica con membri, parametri e valori di ritorno
+   - Se disponibile, premi il pulsante **🖨️ Salva come PDF** per salvare la pagina come PDF
 
-## Licenza
+### 🌐 Demo Online
+
+Puoi provare l'applicazione direttamente online: [https://convertitore-file.github.io/](https://convertitore-file.github.io/)
+
+## 🛠️ Tecnologie Utilizzate
+
+- **HTML5** – Struttura della pagina
+- **CSS3** – Stile, layout e regole per la stampa PDF (`@media print`)
+- **Vanilla JavaScript** – Logica di lettura file, anteprima e manipolazione DOM
+- **Google Fonts** (Outfit, Space Grotesk, Press Start 2P) – Aspetto visivo
+- **Font Awesome** – Icone
+- **Responsive Design** – Mobile-first approach
+- **Print CSS** – Regole per la stampa browser
+
+## 📦 Formati Supportati
+
+| Tipo | Estensioni |
+|------|------------|
+| **Immagini** | .jpg, .jpeg, .png, .webp, .gif, .svg, .bmp, .ico |
+| **Testo/Codice** | .txt, .cs, .html, .json, .csv, .py, .js, .php, .rb, .java, .go, .rs, .ts, .tsx, .jsx |
+| **C# XML** | .xml (con struttura doc > members > member) |
+| **Generici** | .xml (senza struttura C# specifica) |
+
+## 📸 Screenshot
+
+![Universal PDF Converter - Homepage](https://via.placeholder.com/800x450/1e3a8a/ffffff?text=Universal+PDF+Converter+Homepage)
+
+![Universal PDF Converter - Image Preview](https://via.placeholder.com/800x450/1e3a8a/ffffff?text=Image+Preview)
+
+![Universal PDF Converter - Code Preview](https://via.placeholder.com/800x450/1e3a8a/ffffff?text=Code+Preview)
+
+![Universal PDF Converter - C# XML](https://via.placeholder.com/800x450/1e3a8a/ffffff?text=C%23+XML+Preview)
+
+## 🎯 Browser Support
+
+| Browser | Versione |
+|---------|----------|
+| Chrome | Ultima versione |
+| Firefox | Ultima versione |
+| Safari | Ultima versione |
+| Edge | Ultima versione |
+| Opera | Ultima versione |
+
+L'applicazione funziona su qualsiasi browser moderno che supporta ES6+ e File API.
+
+## �ributing
+
+Contributi sono benvenuti! Ecco come puoi aiutare:
+
+1. **Fork** il repository
+2. Crea un nuovo branch (`git checkout -b feature/AmazingFeature`)
+3. Committa le tue modifiche (`git commit -m 'Add some AmazingFeature'`)
+4. Push al branch (`git push origin feature/AmazingFeature`)
+5. Apri una **Pull Request**
+
+### Linee Guida per i Contributi
+
+- Segui lo stile di codice esistente
+- Aggiungi commenti per funzioni complesse
+- Mantieni il design responsive
+- Aggiungi test manuali per i nuovi formati supportati
+- Aggiorna la documentazione di conseguenza
+
+## 📄 Licenza
 
 Questo progetto è rilasciato sotto la licenza **MIT**. Vedi il file `LICENSE` per maggiori dettagli.
 
-## Autore
+Copyright (c) 2026 Cipriano Salvatore
 
-*Sviluppato da Cipriano Salvatore* – 2026
+## 👤 Autore
+
+**Cipriano Salvatore**
+
+- GitHub: [@cipriano-salvatore](https://github.com/cipriano-salvatore)
+- Twitter: [@cipriano_salvatore](https://twitter.com/cipriano_salvatore)
+- Email: [cipriano.salvatore@example.com](mailto:cipriano.salvatore@example.com)
+
+---
+
+⭐ **Se ti piace questo progetto, considera di dargli una stellina su GitHub!**

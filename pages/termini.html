@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/jpeg" href="../img/Logo.jpeg">
+    <link rel="stylesheet" href="../Style/style.css">
+
+    <!-- Fonts & Icons -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <title>Termini di Servizio - Convertitore di file in PDF</title>
+
+    <style>
+        .legal-main {
+            max-width: 900px;
+            margin: 140px auto 80px;
+            padding: 0 20px;
+        }
+        .legal-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: 48px;
+            box-shadow: var(--shadow);
+        }
+        .legal-card h1 {
+            font-family: var(--font-hero);
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            color: var(--text);
+            margin-bottom: 12px;
+        }
+        .legal-date {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-bottom: 32px;
+            padding-bottom: 16px;
+            border-bottom: 1px solid var(--border);
+        }
+        .legal-card h2 {
+            font-family: var(--font-hero);
+            font-size: 1.35rem;
+            color: var(--text);
+            margin-top: 32px;
+            margin-bottom: 12px;
+        }
+        .legal-card p, .legal-card li {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 16px;
+        }
+        .legal-card ul {
+            padding-left: 20px;
+            margin-bottom: 20px;
+        }
+        @media (max-width: 768px) {
+            .legal-card {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Skip Link -->
+    <a href="#main-content" class="skip-link">Saltare al contenuto</a>
+
+    <!-- Navigation -->
+    <nav class="navbar" aria-label="Menu principale">
+        <a href="../index.html" class="logo">
+            <img src="../img/Logo.jpeg" alt="Convertitore File Logo" height="40" loading="lazy">
+            <span>Convertitore File</span>
+        </a>
+        <ul class="nav-links" role="navigation" aria-label="Link navigazione">
+            <li><a href="../index.html#features" class="nav-link">Caratteristiche</a></li>
+            <li><a href="../index.html#about" class="nav-link">Informazioni</a></li>
+            <li><a href="../index.html#contact" class="nav-link">Contatti</a></li>
+        </ul>
+
+        <!-- Azioni a destra della Navbar: Pulsante Tema + CTA -->
+        <div class="nav-actions" style="display: flex; align-items: center; gap: 12px; margin-left: 24px;">
+            <button id="themeToggle" aria-label="Cambia tema chiaro/scuro" class="btn-theme-toggle" style="
+                    background: var(--background);
+                    border: 1px solid var(--border);
+                    color: var(--text);
+                    width: 40px;
+                    height: 40px;
+                    border-radius: 50%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    cursor: pointer;
+                    transition: all var(--transition-speed);
+                ">
+                <i class="fas fa-moon" id="moonIcon"></i>
+                <i class="fas fa-sun" id="sunIcon" style="display: none;"></i>
+            </button>
+            <a href="index.html#converter" class="btn-nav">Converti file</a>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main id="main-content" class="legal-main">
+        <div class="legal-card">
+            <h1>Termini di Servizio</h1>
+            <div class="legal-date">Ultimo aggiornamento: Novembre 2026</div>
+
+            <h2>1. Accettazione dei Termini</h2>
+            <p>Accedendo e utilizzando il sito web <strong>Convertitore File</strong> (ospitato su GitHub Pages), accetti di essere vincolato dai presenti Termini di Servizio. Se non accetti queste condizioni, ti invitiamo a non utilizzare il sito.</p>
+
+            <h2>2. Descrizione del Servizio</h2>
+            <p>Il sito offre uno strumento gratuito basato interamente sul browser per visualizzare, formattare e convertire in formato PDF immagini, codice sorgente e documentazione tecnica C# XML.</p>
+
+            <h2>3. Elaborazione e Privacy Locale</h2>
+            <p>Tutte le operazioni di lettura ed elaborazione dei file avvengono interamente ed esclusivamente sul tuo dispositivo (lato client). Nessun file o documento viene caricato, salvato o trasmesso a server esterni.</p>
+
+            <h2>4. Proprietà Intellettuale</h2>
+            <p>I file che carichi e converti tramite lo strumento rimangono di tua esclusiva proprietà. Il codice sorgente e l'interfaccia grafica del sito sono distribuiti sotto licenza MIT.</p>
+
+            <h2>5. Limitazione di Responsabilità</h2>
+            <p>Il servizio viene fornito "così com'è", senza garanzie di alcun tipo. L'amministratore del sito non è responsabile per eventuali perdite di dati, errori di conversione o malfunzionamenti derivanti dall'uso dello strumento.</p>
+
+            <div style="margin-top: 36px; padding-top: 20px; border-top: 1px solid var(--border);">
+                <a href="../index.html" class="btn btn-primary"><i class="fas fa-arrow-left"></i> Torna alla Home</a>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="footer-content">
+            <div class="footer-logo">
+                <img src="../img/Logo.jpeg" alt="Convertitore File Logo" height="30" loading="lazy">
+                <span>Convertitore File</span>
+            </div>
+            <div class="footer-links">
+                <a href="termini.html" style="color: var(--muted);">Termini di Servizio</a>
+                <a href="privacy.html" style="color: var(--muted);">Privacy Policy</a>
+                <a href="../index.html#contact" style="color: var(--muted);">Contattaci</a>
+            </div>
+            <div class="footer-social">
+                <a href="https://github.com/" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                <a href="https://twitter.com/" target="_blank" rel="noopener noreferrer" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+            </div>
+            <div class="footer-bottom">
+                <p>2026 Convertitore File. Tutti i diritti riservati. Licenza MIT.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Sincronizzazione automatica Dark Mode & Navbar Toggle
+        const savedTheme = localStorage.getItem('pdf-converter-theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+            document.body.classList.add('dark-mode');
+        }
+
+        const themeToggle = document.getElementById('themeToggle');
+        const moonIcon = document.getElementById('moonIcon');
+        const sunIcon = document.getElementById('sunIcon');
+
+        if (moonIcon && sunIcon) {
+            moonIcon.style.display = document.body.classList.contains('dark-mode') ? 'none' : 'block';
+            sunIcon.style.display = document.body.classList.contains('dark-mode') ? 'block' : 'none';
+        }
+
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                const isDark = document.body.classList.toggle('dark-mode');
+                localStorage.setItem('pdf-converter-theme', isDark ? 'dark' : 'light');
+                if (moonIcon && sunIcon) {
+                    moonIcon.style.display = isDark ? 'none' : 'block';
+                    sunIcon.style.display = isDark ? 'block' : 'none';
+                }
+            });
+        }
+    </script>
+</body>
+</html>
