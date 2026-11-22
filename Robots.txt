@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://convertitore-file.github.io//sitemap.xml
+Sitemap: https://convertitore-file.github.io/sitemap.xml
