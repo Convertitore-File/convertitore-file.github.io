@@ -1,7 +1,7 @@
 /**
  * ==========================================================================
- * Universal PDF Converter - JavaScript (v2.1)
- * Logica avanzata, gestione file, parsing XML C# e rimozione file
+ * Universal PDF Converter - JavaScript (v2.2)
+ * Logica avanzata, gestione file, parsing XML C#, menu mobile e rimozione file
  * ==========================================================================
  */
 
@@ -42,8 +42,10 @@ const AppState = {
 document.addEventListener('DOMContentLoaded', () => {
     initReducedMotion();
     initDarkModeToggle();
+    initMobileMenu();
     initFileHandling();
     initNavbarScroll();
+    initActiveNavHighlight();
     initSmoothScroll();
     initEntranceAnimations();
     updateCopyrightYear();
@@ -59,11 +61,43 @@ document.addEventListener('DOMContentLoaded', () => {
  * Rileva le preferenze di accessibilità per il movimento ridotto
  */
 function initReducedMotion() {
-    AppState.reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    document.documentElement.style.setProperty(
-        '--transition-speed',
-        AppState.reducedMotion ? '0.01s' : '0.3s'
-    );
+    const mediaQuery = window.matchMedia('(prefers-reduced-motion: reduce)');
+    AppState.reducedMotion = mediaQuery.matches;
+
+    const applyMotionPreference = (prefersReduced) => {
+        AppState.reducedMotion = prefersReduced;
+        document.documentElement.style.setProperty(
+            '--transition-speed',
+            prefersReduced ? '0.01s' : '0.3s'
+        );
+    };
+
+    applyMotionPreference(AppState.reducedMotion);
+
+    if (typeof mediaQuery.addEventListener === 'function') {
+        mediaQuery.addEventListener('change', (e) => applyMotionPreference(e.matches));
+    }
+}
+
+/**
+ * Aggiorna la visibilità delle icone sole/luna in base allo stato darkMode
+ */
+function syncThemeIcons() {
+    const moonIcon = document.getElementById('moonIcon');
+    const sunIcon = document.getElementById('sunIcon');
+    const themeToggle = document.getElementById('themeToggle');
+
+    if (moonIcon && sunIcon) {
+        moonIcon.style.display = AppState.darkMode ? 'none' : 'block';
+        sunIcon.style.display = AppState.darkMode ? 'block' : 'none';
+    }
+
+    if (themeToggle) {
+        themeToggle.setAttribute(
+            'aria-label',
+            AppState.darkMode ? 'Attiva tema chiaro' : 'Attiva tema scuro'
+        );
+    }
 }
 
 /**
@@ -78,28 +112,67 @@ function initDarkModeToggle() {
         AppState.darkMode = true;
     }
 
+    syncThemeIcons();
+
     const themeToggle = document.getElementById('themeToggle');
-    const moonIcon = document.getElementById('moonIcon');
-    const sunIcon = document.getElementById('sunIcon');
-
-    // Aggiorna icone iniziali
-    if (moonIcon && sunIcon) {
-        moonIcon.style.display = AppState.darkMode ? 'none' : 'block';
-        sunIcon.style.display = AppState.darkMode ? 'block' : 'none';
-    }
-
     if (themeToggle) {
         themeToggle.addEventListener('click', () => {
             AppState.darkMode = !AppState.darkMode;
             document.body.classList.toggle('dark-mode', AppState.darkMode);
             localStorage.setItem('pdf-converter-theme', AppState.darkMode ? 'dark' : 'light');
-
-            if (moonIcon && sunIcon) {
-                moonIcon.style.display = AppState.darkMode ? 'none' : 'block';
-                sunIcon.style.display = AppState.darkMode ? 'block' : 'none';
-            }
+            syncThemeIcons();
         });
     }
+}
+
+/**
+ * Gestione Menu Mobile responsive (#mobileMenuBtn + #navLinks)
+ */
+function initMobileMenu() {
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navLinks = document.getElementById('navLinks');
+
+    if (!mobileMenuBtn || !navLinks) return;
+
+    const setMenuState = (open) => {
+        navLinks.classList.toggle('open', open);
+        mobileMenuBtn.setAttribute('aria-expanded', String(open));
+        mobileMenuBtn.setAttribute('aria-label', open ? 'Chiudi menu' : 'Apri menu');
+
+        const icon = mobileMenuBtn.querySelector('i');
+        if (icon) {
+            icon.className = open ? 'fas fa-times' : 'fas fa-bars';
+        }
+    };
+
+    mobileMenuBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = !navLinks.classList.contains('open');
+        setMenuState(isOpen);
+    });
+
+    navLinks.querySelectorAll('a').forEach((link) => {
+        link.addEventListener('click', () => setMenuState(false));
+    });
+
+    document.addEventListener('click', (e) => {
+        if (navLinks.classList.contains('open') && !navLinks.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
+            setMenuState(false);
+        }
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinks.classList.contains('open')) {
+            setMenuState(false);
+            mobileMenuBtn.focus();
+        }
+    });
+
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 768 && navLinks.classList.contains('open')) {
+            setMenuState(false);
+        }
+    });
 }
 
 /**
@@ -108,19 +181,15 @@ function initDarkModeToggle() {
 function resetConverter() {
     AppState.currentFile = null;
 
-    // Pulisci l'input file per consentire la riselezione dello stesso file
     const fileInput = document.getElementById('fileInput');
     if (fileInput) fileInput.value = '';
 
-    // Nascondi il pulsante di stampa
     const printBtn = document.getElementById('printBtn');
     if (printBtn) printBtn.style.display = 'none';
 
-    // Nascondi il badge del tipo file
     const fileTypeBadge = document.getElementById('fileTypeBadge');
     if (fileTypeBadge) fileTypeBadge.style.display = 'none';
 
-    // Ripristina l'area di output allo stato iniziale
     const output = document.getElementById('output');
     if (output) {
         output.innerHTML = `
@@ -134,19 +203,31 @@ function resetConverter() {
 window.resetConverter = resetConverter;
 
 /**
+ * Collega gli eventi del pulsante "Rimuovi" dentro l'anteprima corrente
+ */
+function bindRemoveFileButton() {
+    const removeBtn = document.getElementById('removeFileBtn');
+    if (!removeBtn) return;
+
+    removeBtn.addEventListener('click', () => {
+        resetConverter();
+    });
+}
+
+/**
  * Header comune con pulsante di rimozione file per le anteprime
  */
 function createFileInfoHeader(fileName) {
     return `
-        <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border);">
+        <div style="display: flex; justify-content: space-between; align-items: center; gap: 12px; width: 100%; margin-bottom: 16px; padding-bottom: 12px; border-bottom: 1px solid var(--border);">
             <div style="display: flex; align-items: center; gap: 8px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                <i class="fas fa-file-alt" style="color: var(--primary);"></i>
-                <span style="font-weight: 600; font-size: 0.95rem; color: var(--text);">${escapeHtml(fileName)}</span>
+                <i class="fas fa-file-alt" style="color: var(--primary); flex-shrink: 0;"></i>
+                <span style="font-weight: 600; font-size: 0.95rem; color: var(--text); overflow: hidden; text-overflow: ellipsis;">${escapeHtml(fileName)}</span>
             </div>
-            <button onclick="resetConverter()" style="
+            <button type="button" id="removeFileBtn" style="
                 background: rgba(220, 38, 38, 0.1);
                 color: var(--error);
-                border: 1px solid rgba(220, 38, 38, 0.2);
+                border: 1px solid rgba(220, 38, 38, 0.25);
                 padding: 6px 12px;
                 border-radius: var(--radius-sm);
                 font-size: 0.85rem;
@@ -155,8 +236,9 @@ function createFileInfoHeader(fileName) {
                 display: inline-flex;
                 align-items: center;
                 gap: 6px;
-                transition: all 0.2s ease;
-            " onmouseover="this.style.background='var(--error)'; this.style.color='#fff';" onmouseout="this.style.background='rgba(220, 38, 38, 0.1)'; this.style.color='var(--error)';">
+                flex-shrink: 0;
+                transition: all var(--transition-speed);
+            ">
                 <i class="fas fa-trash-alt"></i> Rimuovi
             </button>
         </div>
@@ -186,7 +268,7 @@ function initFileHandling() {
         }
     });
 
-    ['dragenter', 'dragover'].forEach(eventName => {
+    ['dragenter', 'dragover'].forEach((eventName) => {
         converterArea.addEventListener(eventName, (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -194,7 +276,7 @@ function initFileHandling() {
         }, false);
     });
 
-    ['dragleave', 'drop'].forEach(eventName => {
+    ['dragleave', 'drop'].forEach((eventName) => {
         converterArea.addEventListener(eventName, (e) => {
             e.preventDefault();
             e.stopPropagation();
@@ -213,7 +295,10 @@ function initFileHandling() {
         AppState.currentFile = file;
 
         if (file.size > AppConfig.maxFileSize) {
-            showErrorState(file.name, `Il file supera la dimensione massima consentita (${AppConfig.maxFileSize / (1024 * 1024)}MB).`);
+            showErrorState(
+                file.name,
+                `Il file supera la dimensione massima consentita (${AppConfig.maxFileSize / (1024 * 1024)}MB).`
+            );
             return;
         }
 
@@ -241,16 +326,17 @@ function initFileHandling() {
                     renderTextFileContent(file.name, content);
                 }
 
-                // Mostra il badge di pronto e il pulsante di stampa
+                bindRemoveFileButton();
+
                 const fileTypeBadge = document.getElementById('fileTypeBadge');
                 if (fileTypeBadge) fileTypeBadge.style.display = 'inline-block';
 
+                const delay = AppState.reducedMotion ? 0 : 250;
                 setTimeout(() => {
                     if (printBtn) printBtn.style.display = 'block';
-                }, 300);
-
+                }, delay);
             } catch (error) {
-                console.error("Errore di elaborazione file:", error);
+                console.error('Errore di elaborazione file:', error);
                 showErrorState(file.name, 'Errore durante la lettura o il parsing del file.');
             }
         };
@@ -288,6 +374,8 @@ function isValidFileType(file) {
  */
 function showLoadingState() {
     const output = document.getElementById('output');
+    if (!output) return;
+
     output.innerHTML = `
         <div style="padding: 40px; text-align: center; color: var(--muted); width: 100%;">
             <i class="fas fa-spinner fa-pulse" style="font-size: 2.5rem; color: var(--primary); margin-bottom: 16px;"></i>
@@ -299,13 +387,17 @@ function showLoadingState() {
 function showErrorState(fileName, message) {
     const output = document.getElementById('output');
     const printBtn = document.getElementById('printBtn');
+    const fileTypeBadge = document.getElementById('fileTypeBadge');
+
     if (printBtn) printBtn.style.display = 'none';
+    if (fileTypeBadge) fileTypeBadge.style.display = 'none';
+    if (!output) return;
 
     output.innerHTML = `
         <div style="padding: 30px; text-align: center; color: var(--error); width: 100%;">
             <i class="fas fa-exclamation-triangle" style="font-size: 2rem; margin-bottom: 12px;"></i>
             <h3 style="margin-bottom: 8px;">Attenzione</h3>
-            <p>${message}</p>
+            <p>${escapeHtml(message)}</p>
             <small style="display: block; margin-top: 12px; color: var(--muted);">File: ${escapeHtml(fileName)}</small>
         </div>
     `;
@@ -316,6 +408,8 @@ function showErrorState(fileName, message) {
  */
 function renderImagePreview(file, dataUrl) {
     const output = document.getElementById('output');
+    if (!output) return;
+
     output.innerHTML = `
         <div style="width: 100%; text-align: left;">
             ${createFileInfoHeader(file.name)}
@@ -328,6 +422,8 @@ function renderImagePreview(file, dataUrl) {
 
 function renderTextFileContent(fileName, content) {
     const output = document.getElementById('output');
+    if (!output) return;
+
     output.innerHTML = `
         <div style="width: 100%; text-align: left;">
             ${createFileInfoHeader(fileName)}
@@ -340,21 +436,23 @@ function renderTextFileContent(fileName, content) {
 
 function renderCSharpXmlDocumentation(xmlString) {
     const output = document.getElementById('output');
-    const parser = new DOMParser();
-    const xmlDoc = parser.parseFromString(xmlString, "text/xml");
+    if (!output) return;
 
-    const parserError = xmlDoc.querySelector("parsererror");
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlString, 'text/xml');
+
+    const parserError = xmlDoc.querySelector('parsererror');
     if (parserError) {
-        renderTextFileContent(AppState.currentFile ? AppState.currentFile.name : "documento.xml", xmlString);
+        renderTextFileContent(AppState.currentFile ? AppState.currentFile.name : 'documento.xml', xmlString);
         return;
     }
 
-    const assemblyName = xmlDoc.querySelector("assembly > name")?.textContent || "Documentazione C#";
-    const members = xmlDoc.querySelectorAll("members > member");
+    const assemblyName = xmlDoc.querySelector('assembly > name')?.textContent || 'Documentazione C#';
+    const members = xmlDoc.querySelectorAll('members > member');
 
     let html = `
         <div style="width: 100%; text-align: left;">
-            ${createFileInfoHeader(AppState.currentFile ? AppState.currentFile.name : "documento.xml")}
+            ${createFileInfoHeader(AppState.currentFile ? AppState.currentFile.name : 'documento.xml')}
             <div style="border-bottom: 2px solid var(--border); padding-bottom: 12px; margin-bottom: 20px;">
                 <h3 style="font-size: 1.2rem; color: var(--primary); font-family: var(--font-hero);">Documentazione Tecnica C#</h3>
                 <p style="font-size: 0.85rem; color: var(--muted); margin-top: 4px;">Assembly: <strong>${escapeHtml(assemblyName)}</strong> &bull; ${members.length} elementi</p>
@@ -365,20 +463,20 @@ function renderCSharpXmlDocumentation(xmlString) {
     if (members.length === 0) {
         html += `<p style="text-align: center; color: var(--muted); padding: 20px;">Nessun membro XML trovato in questo file.</p>`;
     } else {
-        members.forEach(m => {
-            const fullName = m.getAttribute("name") || "";
-            const prefix = fullName.split(":")[0];
-            const cleanName = fullName.substring(fullName.indexOf(":") + 1);
-            const label = CSHARP_MEMBER_TYPES[prefix] || "Elemento";
+        members.forEach((m) => {
+            const fullName = m.getAttribute('name') || '';
+            const prefix = fullName.split(':')[0];
+            const cleanName = fullName.includes(':') ? fullName.substring(fullName.indexOf(':') + 1) : fullName;
+            const label = CSHARP_MEMBER_TYPES[prefix] || 'Elemento';
 
-            const summary = m.querySelector("summary")?.textContent.trim() || "Nessuna descrizione disponibile.";
-            const returns = m.querySelector("returns")?.textContent.trim();
-            const params = m.querySelectorAll("param");
+            const summary = m.querySelector('summary')?.textContent.trim() || 'Nessuna descrizione disponibile.';
+            const returns = m.querySelector('returns')?.textContent.trim();
+            const params = m.querySelectorAll('param');
 
             html += `
-                <div style="background: var(--background); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 12px;">
-                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px;">
-                        <span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">${label}</span>
+                <div style="background: var(--background); border: 1px solid var(--border); border-radius: var(--radius-sm); padding: 18px; margin-bottom: 4px;">
+                    <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 8px; flex-wrap: wrap;">
+                        <span style="background: var(--primary-light); color: var(--primary); padding: 2px 8px; border-radius: 4px; font-size: 0.75rem; font-weight: 700; text-transform: uppercase;">${escapeHtml(label)}</span>
                         <code style="font-weight: 600; font-size: 0.95rem; color: var(--text);">${escapeHtml(cleanName)}</code>
                     </div>
                     <p style="font-size: 0.9rem; color: var(--muted); line-height: 1.5; margin-bottom: 12px;">${escapeHtml(summary)}</p>
@@ -390,8 +488,8 @@ function renderCSharpXmlDocumentation(xmlString) {
                         <strong style="font-size: 0.85rem; color: var(--text); display: block; margin-bottom: 6px;">Parametri:</strong>
                         <ul style="list-style-type: none; padding-left: 0;">
                 `;
-                params.forEach(p => {
-                    html += `<li style="font-size: 0.85rem; margin-bottom: 4px;"><code style="color: var(--primary);">${escapeHtml(p.getAttribute("name"))}</code>: ${escapeHtml(p.textContent.trim())}</li>`;
+                params.forEach((p) => {
+                    html += `<li style="font-size: 0.85rem; margin-bottom: 4px;"><code style="color: var(--primary);">${escapeHtml(p.getAttribute('name') || '')}</code>: ${escapeHtml(p.textContent.trim())}</li>`;
                 });
                 html += `</ul></div>`;
             }
@@ -431,13 +529,12 @@ function handlePrintPDF() {
 
     const printWindow = window.open('', '_blank');
     if (!printWindow) {
-        alert("Impossibile aprire la finestra di stampa. Controlla le impostazioni dei popup del browser.");
+        alert('Impossibile aprire la finestra di stampa. Controlla le impostazioni dei popup del browser.');
         return;
     }
 
-    // Cloniamo il contenuto escludendo il pulsante "Rimuovi" dalla stampa cartacea/PDF
     const cloneArea = printArea.cloneNode(true);
-    const removeBtn = cloneArea.querySelector('button');
+    const removeBtn = cloneArea.querySelector('#removeFileBtn, button');
     if (removeBtn) removeBtn.remove();
 
     printWindow.document.write(`
@@ -447,9 +544,9 @@ function handlePrintPDF() {
             <meta charset="UTF-8">
             <title>Stampa / Esportazione PDF - Convertitore File</title>
             <style>
-                @page { 
-                    size: A4; 
-                    margin: 15mm; 
+                @page {
+                    size: A4;
+                    margin: 15mm;
                 }
                 body {
                     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -485,12 +582,12 @@ function handlePrintPDF() {
                     line-height: 1.5;
                     color: #0f172a !important;
                 }
-                div { 
-                    page-break-inside: auto; 
+                div {
+                    page-break-inside: auto;
                 }
-                tr { 
-                    page-break-inside: avoid; 
-                    page-break-after: auto; 
+                tr {
+                    page-break-inside: avoid;
+                    page-break-after: auto;
                 }
             </style>
         </head>
@@ -500,7 +597,7 @@ function handlePrintPDF() {
                 window.onload = function() {
                     window.print();
                     setTimeout(() => { window.close(); }, 500);
-                }
+                };
             </script>
         </body>
         </html>
@@ -522,7 +619,7 @@ function initEntranceAnimations() {
     };
 
     const observer = new IntersectionObserver((entries, observerInstance) => {
-        entries.forEach(entry => {
+        entries.forEach((entry) => {
             if (entry.isIntersecting) {
                 entry.target.style.opacity = '1';
                 entry.target.style.transform = 'translateY(0)';
@@ -531,7 +628,7 @@ function initEntranceAnimations() {
         });
     }, observerOptions);
 
-    animatedElements.forEach(el => {
+    animatedElements.forEach((el) => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(25px)';
         el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -552,37 +649,76 @@ function initNavbarScroll() {
         } else {
             navbar.classList.remove('scrolled');
         }
-    });
+    }, { passive: true });
 }
 
 /**
- * Smooth Scroll per i link interni del menu
+ * Evidenziazione link attivo nella navbar in base alla sezione visibile
+ */
+function initActiveNavHighlight() {
+    const navLinks = document.querySelectorAll('.navbar .nav-links a[href^="#"]');
+    if (!navLinks.length) return;
+
+    const sections = Array.from(navLinks)
+        .map((link) => document.querySelector(link.getAttribute('href')))
+        .filter(Boolean);
+
+    if (!sections.length) return;
+
+    const sectionObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+            if (!entry.isIntersecting) return;
+            const id = entry.target.getAttribute('id');
+            navLinks.forEach((link) => {
+                link.classList.toggle('active', link.getAttribute('href') === `#${id}`);
+            });
+        });
+    }, {
+        rootMargin: '-25% 0px -60% 0px',
+        threshold: 0
+    });
+
+    sections.forEach((section) => sectionObserver.observe(section));
+}
+
+/**
+ * Smooth Scroll per i link interni del menu, CTA e pulsante "Torna su"
  */
 function initSmoothScroll() {
-    document.querySelectorAll('a.nav-link, .hero-cta a').forEach(anchor => {
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
         anchor.addEventListener('click', function(e) {
             const href = this.getAttribute('href');
-            if (href && href.startsWith('#')) {
+            if (!href || !href.startsWith('#')) return;
+
+            if (href === '#') {
                 e.preventDefault();
-                const targetSection = document.querySelector(href);
-                if (targetSection) {
-                    targetSection.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
+                window.scrollTo({
+                    top: 0,
+                    behavior: AppState.reducedMotion ? 'auto' : 'smooth'
+                });
+                return;
+            }
+
+            const targetSection = document.querySelector(href);
+            if (targetSection) {
+                e.preventDefault();
+                targetSection.scrollIntoView({
+                    behavior: AppState.reducedMotion ? 'auto' : 'smooth',
+                    block: 'start'
+                });
             }
         });
     });
 }
 
 /**
- * Aggiornamento automatico Anno Copyright nel footer
+ * Aggiornamento automatico Anno Copyright nel footer preservando il markup interno
  */
 function updateCopyrightYear() {
-    const currentYear = new Date().getFullYear();
-    const footerBottom = document.querySelector('.footer-bottom');
-    if (footerBottom) {
-        footerBottom.innerHTML = footerBottom.innerHTML.replace(/2026/g, currentYear);
+    const currentYear = String(new Date().getFullYear());
+    const copyrightTextNode = document.querySelector('.footer-bottom > p');
+
+    if (copyrightTextNode) {
+        copyrightTextNode.textContent = copyrightTextNode.textContent.replace(/2026/g, currentYear);
     }
 }

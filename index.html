@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- SEO Base -->
-    <title>Convertitore di file in PDF</title>
+    <title>Universal PDF Converter</title>
     <meta name="description" content="Convertitore universale di file in PDF - Converti immagini, documenti e codice in formato PDF gratuitamente">
     <meta name="keywords" content="Convertitore, convertitore gratis, convertitore PDF, online converter, universal converter">
     <link rel="canonical" href="https://convertitore-file.github.io/">
@@ -32,9 +32,6 @@
     <meta property="twitter:title" content="Convertitore Universale di File in PDF">
     <meta property="twitter:description" content="Converti facilmente i tuoi file in formato PDF gratuitamente">
     <meta property="twitter:image" content="img/Logo.jpeg">
-
-    <!-- Coordinates -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
         /* Reduced motion preference */
@@ -58,35 +55,27 @@
 
     <!-- Navigation -->
     <nav class="navbar" aria-label="Menu principale">
-        <div class="logo">
+        <a href="#" class="logo">
             <img src="img/Logo.jpeg" alt="Convertitore File Logo" height="40" loading="lazy">
-            <span>Convertitore File</span>
-        </div>
-        <ul class="nav-links" role="navigation" aria-label="Link navigazione">
+            <span>Universal PDF Converter</span>
+        </a>
+
+        <ul class="nav-links" id="navLinks">
             <li><a href="#features" class="nav-link">Caratteristiche</a></li>
+            <li><a href="#how-it-works" class="nav-links">Come funziona</a></li>
             <li><a href="#about" class="nav-link">Informazioni</a></li>
             <li><a href="#contact" class="nav-link">Contatti</a></li>
         </ul>
 
-        <!-- Azioni a destra della Navbar: Pulsante Tema + CTA -->
-        <div class="nav-actions" style="display: flex; align-items: center; gap: 12px; margin-left: 24px;">
-            <button id="themeToggle" aria-label="Cambia tema chiaro/scuro" class="btn-theme-toggle" style="
-                    background: var(--background);
-                    border: 1px solid var(--border);
-                    color: var(--text);
-                    width: 40px;
-                    height: 40px;
-                    border-radius: 50%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    cursor: pointer;
-                    transition: all var(--transition-speed);
-                ">
+        <div class="nav-actions">
+            <button id="themeToggle" type="button" aria-label="Cambia tema chiaro/scuro" class="btn-theme-toggle">
                 <i class="fas fa-moon" id="moonIcon"></i>
                 <i class="fas fa-sun" id="sunIcon" style="display: none;"></i>
             </button>
             <a href="#converter" class="btn-nav">Converti i tuoi file</a>
+            <button id="mobileMenuBtn" type="button" aria-label="Apri menu" aria-expanded="false" class="btn-mobile-menu">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </nav>
 
@@ -117,26 +106,58 @@
                 </div>
             </div>
         </div>
+
         <div class="hero-visual">
             <div class="visual-card">
+                <div class="visual-card-header">
+                    <span class="preview-eyebrow">Anteprima rapida</span>
+                    <span class="preview-badge">PDF Export</span>
+                </div>
+
                 <div class="visual-preview">
-                    <div class="image-placeholder" style="background: var(--background); padding: 24px; border-radius: var(--radius-sm); border: 1px dashed var(--border); text-align: center;">
-                        <img src="img/Logo.jpeg" alt="Convertitore File Logo" style="width: 80px; height: 80px; object-fit: cover; border-radius: 12px; margin-bottom: 12px; box-shadow: var(--shadow-sm);">
-                        <div class="placeholder-text" style="font-weight: 600; color: var(--text);">
-                            <i class="fas fa-sync-alt" style="color: var(--primary); margin-right: 6px;"></i>
-                            <span>Convertitore File</span>
+                    <div class="preview-row">
+                        <div class="preview-left">
+                                <span class="preview-icon preview-icon--img">
+                                    <i class="fas fa-image"></i>
+                                </span>
+                            <div class="preview-meta">
+                                <strong>Immagini</strong>
+                                <span>PNG, JPG, WEBP, SVG</span>
+                            </div>
                         </div>
+                        <span class="format-pill">PDF</span>
                     </div>
-                    <div class="code-placeholder">
-                        <i class="fas fa-code" style="color: var(--primary);"></i>
-                        <span>// Esempio codice &rarr; PDF</span>
+
+                    <div class="preview-row">
+                        <div class="preview-left">
+                                <span class="preview-icon preview-icon--code">
+                                    <i class="fas fa-code"></i>
+                                </span>
+                            <div class="preview-meta">
+                                <strong>Codice sorgente</strong>
+                                <span>CS, PY, JS, HTML, JSON</span>
+                            </div>
+                        </div>
+                        <span class="format-pill">PDF</span>
                     </div>
-                    <div class="xml-placeholder">
-                        <i class="fas fa-file-code" style="color: var(--accent);"></i>
-                        <span>-&gt; Classe / Metodo C#</span>
+
+                    <div class="preview-row">
+                        <div class="preview-left">
+                                <span class="preview-icon preview-icon--xml">
+                                    <i class="fas fa-file-code"></i>
+                                </span>
+                            <div class="preview-meta">
+                                <strong>Documentazione C#</strong>
+                                <span>Classi, metodi e XML</span>
+                            </div>
+                        </div>
+                        <span class="format-pill format-pill--accent">PDF</span>
                     </div>
                 </div>
-                <small>ANTEPRIMA DEI FORMATI SUPPORTATI</small>
+
+                <div class="visual-card-footer">
+                    <span>Elaborazione 100% locale nel browser</span>
+                </div>
             </div>
         </div>
     </div>
@@ -160,14 +181,14 @@
                     <i class="fas fa-code"></i>
                 </div>
                 <h3>Codice Sorgente</h3>
-                <p>.CS, .HTML, .JSON, .PY, .TXT e altri formati di testo. Evidenziazione sintassi inclusa.</p>
+                <p>.CS, .HTML, .JSON, .PY, .TXT e altri linguaggi supportati. Evidenziazione sintassi inclusa.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
                     <i class="fas fa-file-alt"></i>
                 </div>
-                <h3>Documentazione C#</h3>
-                <p>File XML di documentazione C# con rendering strutturato di classi, metodi, proprietà e campi.</p>
+                <h3>File Testuali</h3>
+                <p>TXT, CSV e altri documenti di testo. Conversione rapida con impaginazione ordinata per la lettura e l'esportazione in PDF.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">
@@ -219,7 +240,7 @@
                         <i class="fas fa-cloud-upload-alt"></i>
                     </div>
                     <h3 style="font-family: var(--font-hero); font-size: 1.25rem; margin-bottom: 8px; color: var(--text);">Trascina qui il tuo file</h3>
-                    <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 24px;">Supporta Immagini, Codice Sorgente (.cs, .py, .html, .json) e Documentazione C# XML</p>
+                    <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 24px;">Supporta Immagini, File di testo e Codice Sorgente (.cs, .py, .html, .json)</p>
 
                     <label for="fileInput" class="btn btn-primary" style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
                         <i class="fas fa-folder-open"></i>
@@ -281,21 +302,65 @@
 
     <!-- Footer -->
     <footer class="footer" id="contact">
-        <div class="footer-content">
-            <div class="footer-logo">
-                <img src="img/Logo.jpeg" alt="Convertitore File Logo" height="30" loading="lazy">
-                <span>Convertitore File</span>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <!-- Colonna 1: Brand & Descrizione -->
+                <div class="footer-brand">
+                    <a href="#" class="footer-logo">
+                        <img src="img/Logo.jpeg" alt="Convertitore File Logo" height="36" loading="lazy">
+                        <span>Convertitore File</span>
+                    </a>
+                    <p class="footer-description">
+                        Converti immagini, codice sorgente e documentazione XML C# in PDF direttamente dal browser. Veloce, gratuito e senza alcun caricamento su server esterni.
+                    </p>
+                    <div class="footer-pill">
+                        <i class="fas fa-shield-alt"></i>
+                        <span>100% Client-Side &middot; Privacy Garantita</span>
+                    </div>
+                </div>
+
+                <!-- Colonna 2: Navigazione -->
+                <div class="footer-col">
+                    <h4>Navigazione</h4>
+                    <ul class="footer-links">
+                        <li><a href="#features">Caratteristiche</a></li>
+                        <li><a href="#how-it-works">Come Funziona</a></li>
+                        <li><a href="#converter">Convertitore PDF</a></li>
+                        <li><a href="#about">Informazioni</a></li>
+                    </ul>
+                </div>
+
+                <!-- Colonna 3: Note Legali -->
+                <div class="footer-col">
+                    <h4>Legale</h4>
+                    <ul class="footer-links">
+                        <li><a href="pages/termini.html">Termini di Servizio</a></li>
+                        <li><a href="pages/privacy.html">Privacy Policy</a></li>
+                    </ul>
+                </div>
+
+                <!-- Colonna 4: Community & Contatti -->
+                <div class="footer-col">
+                    <h4>Seguici &amp; Codice</h4>
+                    <p class="footer-social-text">Progetto open-source rilasciato sotto licenza MIT.</p>
+                    <div class="footer-social">
+                        <a href="https://github.com/cipriano-salvatore" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <a href="https://instagram.com/salvo_codes" target="_blank" rel="noopener noreferrer" aria-label="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
             </div>
-            <div class="footer-links">
-                <a href="pages/termini.html" style="color: var(--muted);">Termini di Servizio</a>
-                <a href="pages/privacy.html" style="color: var(--muted);">Privacy Policy</a>
-            </div>
-            <div class="footer-social">
-                <a href="https://github.com/cipriano-salvatore" target="_blank" rel="noopener noreferrer"><i class="fab fa-github"></i></a>
-                <a href="https://instagram.com/salvo_codes" target="_blank" rel="noopener noreferrer"><i class="fab fa-instagram"></i></a>
-            </div>
+
+            <!-- Barra inferiore separata -->
             <div class="footer-bottom">
-                <p>2026 Convertitore File. Tutti i diritti riservati. Licenza MIT.</p>
+                <p>&copy; 2026 Convertitore File. Tutti i diritti riservati &middot; Licenza MIT.</p>
+                <a href="#" class="back-to-top" aria-label="Torna in cima alla pagina">
+                    <span>Torna su</span>
+                    <i class="fas fa-arrow-up"></i>
+                </a>
             </div>
         </div>
     </footer>
