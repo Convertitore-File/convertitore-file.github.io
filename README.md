@@ -1,137 +1,210 @@
 # Universal PDF Converter
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![GitHub stars](https://img.shields.io/github/stars/convertitore-file/universal-pdf-converter?style=social)](https://github.com/convertitore-file/universal-pdf-converter)
-[![Twitter: @cipriano_salvatore](https://img.shields.io/badge/@cipriano_salvatore-Twitter-1DA1F2?style=social)](https://twitter.com/cipriano_salvatore)
-[![Website](https://img.shields.io/website?url=https%3A%2F%2Fconvertitore-file.github.io%2F)](https://convertitore-file.github.io/)
 
-## 📝 Descrizione
+## 📝 Description
 
-**Universal PDF Converter** è un'applicazione web moderna e intuitiva che ti permette di caricare vari tipi di file e visualizzarli o convertirli in PDF. L'interfaccia è progettata per essere immediata: basta trascinare un file o selezionarlo per ottenere un'anteprima, e se possibile stamparlo direttamente in PDF.
+**Universal PDF Converter** is a modern and intuitive web application that allows you to upload various file types and view or convert them to PDF. The interface is designed to be immediate: simply drag and drop a file or select one to get a preview, and if possible print it directly to PDF.
 
-L'applicazione gestisce attualmente:
+The application currently handles the following:
 
-- **🖼️ Immagini** (JPG, PNG, WEBP, GIF, SVG, SVGZ, BMP, ICO)
-- **💻 File di testo e codice** (.txt, .cs, .html, .json, .csv, .py, .js, .php, .rb, .java, .go, .rs, .ts, .tsx, .jsx)
-- **📚 Documentazione C#** con rendering strutturato di membri (classi, metodi, proprietà, campi)
-- **📄 File XML** generici
+- **🖼️ Images** (JPG, PNG, WEBP, GIF, SVG, SVGZ, BMP, ICO)
+- **💻 Text and code files** (.txt, .cs, .html, .json, .csv, .py, .js, .php, .rb, .java, .go, .rs, .ts, .tsx, .jsx)
+- **📚 C# documentation** with structured member rendering (classes, methods, properties, fields)
+- **📄 Generic XML files**
 
-Quando possibile, appare un pulsante "Stampa PDF" che salva la visualizzazione corrente come PDF tramite il browser.
+When available, a "Print PDF" button appears that saves the current view as PDF via the browser.
 
-## ✨ Caratteristiche
+## ✨ Features
 
-| Funzionalità | Descrizione |
-|-------------|-------------|
-| **Caricamento grafico** | Trascina e rilascia o clicca per scegliere un file |
-| **Anteprima immediata** | Visualizzazione di immagini e testo con highlight sintattico |
-| **Rendering C# XML** | Strutturato con classi, metodi, proprietà, campi e parametri |
-| **Stampa in PDF** | Pulsante integrato per salvare qualsiasi visualizzazione come PDF |
-| **Design responsive** | Funziona perfettamente su desktop e dispositivi mobili |
-| **Tema chiaro/scuro** | Supporto completo per entrambi i modi |
-| **Animazioni fluide** | Entrate animate e interazioni hover |
-| **Accessibilità** | ARIA label, focus management, keyboard navigation |
+| Feature | Description |
+| ------- | ----------- |
+| **Graphical Upload** | Drag and drop or click to select a file |
+| **Immediate Preview** | Image and text preview with syntax highlighting |
+| **C# XML Rendering** | Structured with classes, methods, properties, fields and parameters |
+| **PDF Print** | Integrated button to save any view as PDF |
+| **Responsive Design** | Works perfectly on desktop and mobile devices |
+| **Light/Dark Theme** | Full support for both modes |
+| **Smooth Animations** | Entrance animations and hover interactions |
+| **Accessibility** | ARIA labels, focus management, keyboard navigation |
 
-## 🚀 Come Usare
+## 🚀 How to Use
 
-### Installazione Locale
+### Local Installation
 
-1. **Clona il repository**
+1. **Clone the repository**
+
    ```bash
    git clone https://github.com/convertitore-file/universal-pdf-converter.git
    ```
 
-2. **Apri l'applicazione**
+2. **Open the application**
+
    ```bash
    cd universal-pdf-converter
    open index.html
    ```
-   Oppure semplicemente apri `index.html` con qualsiasi browser moderno.
 
-3. **Utilizzo**
-   - Nella barra superiore, premi il pulsante **📂 Scegli un file** o trascina un file nell'area designata
-   - L'applicazione rileverà automaticamente il tipo di file e mostrerà un'anteprima:
-     - **Immagini**: anteprima thumbnail visualizzata
-     - **Testo/Codice**: contenuto visualizzato con highlighting sintattico
-     - **XML C#**: struttura tecnica con membri, parametri e valori di ritorno
-   - Se disponibile, premi il pulsante **🖨️ Salva come PDF** per salvare la pagina come PDF
+   Or simply open `index.html` with any modern browser.
 
-### 🌐 Demo Online
+3. **Usage**
 
-Puoi provare l'applicazione direttamente online: [https://convertitore-file.github.io/](https://convertitore-file.github.io/)
+   - In the top toolbar, press the **📂 Choose a file** button or drag a file into the designated area
+   - The application will automatically detect the file type and show a preview:
+     - **Images**: thumbnail preview displayed
+     - **Text/Code**: content displayed with syntax highlighting
+     - **C# XML**: technical structure with members, parameters and return values
+   - If available, press the **🖨️ Save as PDF** button to save the page as PDF
 
-## 🛠️ Tecnologie Utilizzate
+### 🌐 Online Demo
 
-- **HTML5** – Struttura della pagina
-- **CSS3** – Stile, layout e regole per la stampa PDF (`@media print`)
-- **Vanilla JavaScript** – Logica di lettura file, anteprima e manipolazione DOM
-- **Google Fonts** (Outfit, Space Grotesk, Press Start 2P) – Aspetto visivo
-- **Font Awesome** – Icone
+You can try the application directly online: [https://convertitore-file.github.io/](https://convertitore-file.github.io/)
+
+## 🛠️ Technologies Used
+
+- **HTML5** – Page structure
+- **CSS3** – Styling, layout and PDF print rules (`@media print`)
+- **Vanilla JavaScript** – File reading logic, preview and DOM manipulation
+- **Google Fonts** (Outfit, Space Grotesk, Press Start 2P) – Visual appearance
+- **Font Awesome** – Icons
 - **Responsive Design** – Mobile-first approach
-- **Print CSS** – Regole per la stampa browser
+- **Print CSS** – Browser print rules
 
-## 📦 Formati Supportati
+## 📦 Supported Formats
 
-| Tipo | Estensioni |
-|------|------------|
-| **Immagini** | .jpg, .jpeg, .png, .webp, .gif, .svg, .bmp, .ico |
-| **Testo/Codice** | .txt, .cs, .html, .json, .csv, .py, .js, .php, .rb, .java, .go, .rs, .ts, .tsx, .jsx |
-| **C# XML** | .xml (con struttura doc > members > member) |
-| **Generici** | .xml (senza struttura C# specifica) |
-
-## 📸 Screenshot
-
-![Universal PDF Converter - Homepage](https://via.placeholder.com/800x450/1e3a8a/ffffff?text=Universal+PDF+Converter+Homepage)
-
-![Universal PDF Converter - Image Preview](https://via.placeholder.com/800x450/1e3a8a/ffffff?text=Image+Preview)
-
-![Universal PDF Converter - Code Preview](https://via.placeholder.com/800x450/1e3a8a/ffffff?text=Code+Preview)
-
-![Universal PDF Converter - C# XML](https://via.placeholder.com/800x450/1e3a8a/ffffff?text=C%23+XML+Preview)
+| Type | Extensions |
+| ---- | ---------- |
+| **Images** | .jpg, .jpeg, .png, .webp, .gif, .svg, .bmp, .ico |
+| **Text/Code** | .txt, .cs, .html, .json, .csv, .py, .js, .php, .rb, .java, .go, .rs, .ts, .tsx, .jsx |
 
 ## 🎯 Browser Support
 
-| Browser | Versione |
-|---------|----------|
-| Chrome | Ultima versione |
-| Firefox | Ultima versione |
-| Safari | Ultima versione |
-| Edge | Ultima versione |
-| Opera | Ultima versione |
+| Browser | Version |
+| ------- | ------- |
+| Chrome | Latest |
+| Firefox | Latest |
+| Safari | Latest |
+| Edge | Latest |
+| Opera | Latest |
 
-L'applicazione funziona su qualsiasi browser moderno che supporta ES6+ e File API.
+The application works on any modern browser that supports ES6+ and File API.
 
-## �ributing
+## 🤝 Contributing
 
-Contributi sono benvenuti! Ecco come puoi aiutare:
+Contributions are welcome! Here's how you can help:
 
-1. **Fork** il repository
-2. Crea un nuovo branch (`git checkout -b feature/AmazingFeature`)
-3. Committa le tue modifiche (`git commit -m 'Add some AmazingFeature'`)
-4. Push al branch (`git push origin feature/AmazingFeature`)
-5. Apri una **Pull Request**
+1. **Fork** the repository
+2. Create a new branch (`git checkout -b feature/AmazingFeature`)
+3. **Commit** your changes (`git commit -m 'Add some AmazingFeature'`)
+4. **Push** to the branch (`git push origin feature/AmazingFeature`)
+5. Open a **Pull Request**
 
-### Linee Guida per i Contributi
+### Contribution Guidelines
 
-- Segui lo stile di codice esistente
-- Aggiungi commenti per funzioni complesse
-- Mantieni il design responsive
-- Aggiungi test manuali per i nuovi formati supportati
-- Aggiorna la documentazione di conseguenza
+- Follow the existing code style
+- Add comments for complex functions
+- Maintain responsive design
+- Add manual tests for new supported formats
+- Update documentation accordingly
 
-## 📄 Licenza
+## 📄 License
 
-Questo progetto è rilasciato sotto la licenza **MIT**. Vedi il file `LICENSE` per maggiori dettagli.
+This project is released under the **MIT** License. See the `LICENSE` file for more details.
 
 Copyright (c) 2026 Cipriano Salvatore
 
-## 👤 Autore
+## 👤 Author
 
 **Cipriano Salvatore**
 
 - GitHub: [@cipriano-salvatore](https://github.com/cipriano-salvatore)
-- Twitter: [@cipriano_salvatore](https://twitter.com/cipriano_salvatore)
-- Email: [cipriano.salvatore@example.com](mailto:cipriano.salvatore@example.com)
+- Email: [cipriano.salvatore@outlook](mailto:cipriano.salvatore@outlook.com)
+
+⭐ **If you like this project, consider giving it a star on GitHub!**
 
 ---
 
-⭐ **Se ti piace questo progetto, considera di dargli una stellina su GitHub!**
+## 🌐 Deployment
+
+### GitHub Pages
+
+This project is designed to be hosted on [GitHub Pages](https://pages.github.io/). To deploy:
+
+1. Push your changes to the `main` branch
+2. Go to repository Settings > Pages
+3. Set the source branch to `main` and folder to `/ (root)`
+4. Your site will be available at `https://convertitore-file.github.io/`
+
+### Local Development
+
+```bash
+# Install dependencies
+npm install
+
+# Start local development server
+npm start
+
+# Or simply open index.html in any modern browser
+```
+
+### PWA Support
+
+The website can be installed as a Progressive Web App. Consider adding a `manifest.json` and service worker for offline capabilities and home screen addition.
+
+## 📱 PWA Manifest (da aggiungere)
+
+```json
+{
+  "name": "Universal PDF Converter",
+  "short_name": "PDF Converter",
+  "description": "Convert various file types to PDF directly in the browser",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#1e3a8a",
+  "icons": [
+    {
+      "src": "img/Logo.jpeg",
+      "sizes": "192x192",
+      "type": "image/jpeg"
+    }
+  ]
+}
+```
+
+## 🔒 Sicurezza
+
+- Tutte le elaborazioni avvengono **interamente nel browser** (client-side)
+- Nessun file viene caricato su server esterni
+- Supporto per HTTPS obbligatorio per la funzionalità File API
+- Privacy policy disponibile nella pagina dedicata
+
+## 📊 Analytics (opzionale)
+
+Per monitorare l'utilizzo del sito, è possibile integrare:
+- Google Analytics (con configurazione privacy-friendly)
+- Plausible.io (leggero e privacy-first)
+- Statistiche GitHub Pages built-in
+
+## 🌐 Browser Compatibility
+
+Testato su:
+- Chrome (ultima versione)
+- Firefox (ultima versione)
+- Safari (ultima versione)
+- Edge (ultima versione)
+- Opera (ultima versione)
+
+L'applicazione funziona su qualsiasi browser moderno che supporta ES6+ e File API.
+
+## 📬 Contatti e Supporto
+
+- **GitHub Issues**: Segnalare bug e feature request
+- **Email**: cipriano.salvatore@example.com
+- **Discussions**: Per domande generali e supporto
+
+## ⭐ Sponsorship
+
+Se trovi utile questo progetto, considera di sponsorizzarlo per aiutare a mantenere e migliorare l'applicazione:
+
+[![Sponsor](https://img.shields.io/github/sponsors/cipriano-salvatore?style=flat-square)](https://github.com/sponsors/cipriano-salvatore)
