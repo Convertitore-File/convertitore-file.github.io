@@ -15,9 +15,12 @@
 
     <!-- SEO Base -->
     <title>Universal PDF Converter</title>
-    <meta name="description" content="Convertitore universale di file in PDF - Converti immagini, documenti e codice in formato PDF gratuitamente">
+    <meta name="description" content="Convertitore universale di file in PDF - Converti immagini, documenti di codice e XML in formato PDF gratuitamente">
     <meta name="keywords" content="Convertitore, convertitore gratis, convertitore PDF, online converter, universal converter">
+    <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
     <link rel="canonical" href="https://convertitore-file.github.io/">
+    <link rel="alternate" hreflang="it" href="https://convertitore-file.github.io/">
+    <link rel="alternate" hreflang="en" href="https://convertitore-file.github.io/?lang=en">
 
     <!-- Open Graph -->
     <meta property="og:title" content="Convertitore Universale di File in PDF">
@@ -51,20 +54,20 @@
 </head>
 <body>
     <!-- Skip Link -->
-    <a href="#converter" class="skip-link">Saltare al convertitore</a>
+    <a href="#converter" class="skip-link" aria-label="Saltare al convertitore">Saltare al convertitore</a>
 
     <!-- Navigation -->
-    <nav class="navbar" aria-label="Menu principale">
+    <nav class="navbar" aria-label="Menu principale principale" role="navigation">
         <a href="#" class="logo">
-            <img src="img/Logo.jpeg" alt="Convertitore File Logo" height="40" loading="lazy">
+            <img src="img/Logo.jpeg" alt="Logo Convertitore File" height="40" loading="lazy" aria-hidden="true">
             <span>Universal PDF Converter</span>
         </a>
 
-        <ul class="nav-links" id="navLinks">
-            <li><a href="#features" class="nav-link">Caratteristiche</a></li>
-            <li><a href="#how-it-works" class="nav-links">Come funziona</a></li>
-            <li><a href="#about" class="nav-link">Informazioni</a></li>
-            <li><a href="#contact" class="nav-link">Contatti</a></li>
+        <ul class="nav-links" id="navLinks" aria-label="Link navigazione principale">
+            <li><a href="#features" class="nav-link" aria-label="Caratteristiche">Caratteristiche</a></li>
+            <li><a href="#how-it-works" class="nav-links" aria-label="Come funziona">Come funziona</a></li>
+            <li><a href="#about" class="nav-link" aria-label="Informazioni">Informazioni</a></li>
+            <li><a href="#contact" class="nav-link" aria-label="Contatti">Contatti</a></li>
         </ul>
 
         <div class="nav-actions">
@@ -235,18 +238,19 @@
         <div class="converter-container">
             <div class="converter-card">
                 <!-- Area Drag & Drop avanzata -->
-                <div class="converter-area" id="dropZone">
+                <div class="converter-area" id="dropZone" aria-label="Area di caricamento file" role="region" tabindex="0">
                     <div class="converter-icon-wrapper" style="font-size: 3rem; color: var(--primary); margin-bottom: 16px;">
-                        <i class="fas fa-cloud-upload-alt"></i>
+                        <i class="fas fa-cloud-upload-alt" aria-hidden="true"></i>
                     </div>
                     <h3 style="font-family: var(--font-hero); font-size: 1.25rem; margin-bottom: 8px; color: var(--text);">Trascina qui il tuo file</h3>
                     <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 24px;">Supporta Immagini, File di testo e Codice Sorgente (.cs, .py, .html, .json)</p>
+                    <p class="sr-only" tabindex="0">Premere Invio o Spazio per sfogliare i file</p>
 
                     <label for="fileInput" class="btn btn-primary" style="cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
-                        <i class="fas fa-folder-open"></i>
+                        <i class="fas fa-folder-open" aria-hidden="true"></i>
                         <span>Sfoglia file dal computer</span>
                     </label>
-                    <input type="file" id="fileInput" accept="image/*,.txt,.cs,.html,.json,.csv,.py,.xml,.js,.ts" style="display: none;">
+                    <input type="file" id="fileInput" accept="image/*,.txt,.cs,.html,.json,.csv,.py,.xml,.js,.ts" style="display: none;" aria-label="Sfoglia file dal computer">
                 </div>
 
                 <!-- Box Anteprima e Risultato Conversione -->
@@ -273,9 +277,9 @@
     </section>
 
     <!-- About Section -->
-    <section class="about" id="about">
+    <section class="about" id="about" aria-labelledby="about-title">
         <div class="section-header">
-            <h2><i class="fas fa-info-circle"></i> Informazioni</h2>
+            <h2 id="about-title"><i class="fas fa-info-circle"></i> Informazioni</h2>
             <p>Su di noi</p>
         </div>
         <div class="about-content">

@@ -274,6 +274,14 @@ function initFileHandling() {
         }
     });
 
+    // Allow Space and Enter keys to trigger file input
+    converterArea.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            fileInput.click();
+        }
+    });
+
     fileInput.addEventListener('change', (e) => {
         if (e.target.files && e.target.files[0]) {
             processFile(e.target.files[0]);
@@ -306,10 +314,11 @@ function initFileHandling() {
     function processFile(file) {
         AppState.currentFile = file;
 
+        // Show size validation before loading state
         if (file.size > AppConfig.maxFileSize) {
             showErrorState(
                 file.name,
-                `Il file supera la dimensione massima consentita (${AppConfig.maxFileSize / (1024 * 1024)}MB).`
+                `Il file supera la dimensione massima consentita (${(AppConfig.maxFileSize / (1024 * 1024)).toFixed(1)}MB).`
             );
             return;
         }
@@ -319,7 +328,20 @@ function initFileHandling() {
             return;
         }
 
+        // Show loading state with file info
         showLoadingState();
+
+        // Add file name to loading state for better UX
+        const output = document.getElementById('output');
+        if (output) {
+            output.innerHTML = `
+                <div style="padding: 20px; text-align: center; color: var(--muted); width: 100%;">
+                    <i class="fas fa-spinner fa-pulse" style="font-size: 2rem; color: var(--primary); margin-bottom: 16px;"></i>
+                    <p>Elaborazione file: ${file.name}</p>
+                    <p style="font-size: 0.9rem; color: var(--muted);">Il file viene letto ed elaborato nel browser</p>
+                </div>
+            `;
+        }
 
         const reader = new FileReader();
 
