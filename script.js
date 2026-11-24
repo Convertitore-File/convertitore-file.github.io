@@ -107,9 +107,21 @@ function initDarkModeToggle() {
     const savedTheme = localStorage.getItem('pdf-converter-theme');
     const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
 
-    if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+    // Applica la preferenza salvata in precedenza, altrimenti usa quella di sistema
+    if (savedTheme === 'dark') {
         document.body.classList.add('dark-mode');
         AppState.darkMode = true;
+    } else if (savedTheme === 'light') {
+        document.body.classList.remove('dark-mode');
+        AppState.darkMode = false;
+    } else if (prefersDark) {
+        // Nessuna preferenza salvata: usa quella di sistema
+        document.body.classList.add('dark-mode');
+        AppState.darkMode = true;
+    } else {
+        // Nessuna preferenza salvata e sistema chiaro: default chiaro
+        document.body.classList.remove('dark-mode');
+        AppState.darkMode = false;
     }
 
     syncThemeIcons();
@@ -366,7 +378,8 @@ function isCSharpXmlFile(file) {
 }
 
 function isValidFileType(file) {
-    return isImageFile(file) || isCSharpXmlFile(file) || AppConfig.supportedExtensions.text.test(file.name);
+    // isCSharpXmlFile è redundant con supportedExtensions.text.test che include già .xml
+    return isImageFile(file) || AppConfig.supportedExtensions.text.test(file.name);
 }
 
 /**
@@ -470,7 +483,7 @@ function renderCSharpXmlDocumentation(xmlString) {
             const label = CSHARP_MEMBER_TYPES[prefix] || 'Elemento';
 
             const summary = m.querySelector('summary')?.textContent.trim() || 'Nessuna descrizione disponibile.';
-            const returns = m.querySelector('returns')?.textContent.trim();
+            const returns = m.querySelector('returns')?.textContent?.trim();
             const params = m.querySelectorAll('param');
 
             html += `
@@ -533,9 +546,12 @@ function handlePrintPDF() {
         return;
     }
 
+    // Apertura esplicita del documento per compatibilità con popup moderni
+    printWindow.document.open();
+
     const cloneArea = printArea.cloneNode(true);
-    const removeBtn = cloneArea.querySelector('#removeFileBtn, button');
-    if (removeBtn) removeBtn.remove();
+    const removeBtns = cloneArea.querySelectorAll('#removeFileBtn, button');
+    removeBtns.forEach((btn) => btn.remove());
 
     printWindow.document.write(`
         <!DOCTYPE html>
@@ -719,6 +735,6 @@ function updateCopyrightYear() {
     const copyrightTextNode = document.querySelector('.footer-bottom > p');
 
     if (copyrightTextNode) {
-        copyrightTextNode.textContent = copyrightTextNode.textContent.replace(/2026/g, currentYear);
+        copyrightTextNode.textContent = copyrightTextNode.textContent.replace('2026', currentYear);
     }
 }
